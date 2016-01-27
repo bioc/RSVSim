@@ -189,21 +189,21 @@ setMethod("simulateSV",
     if(length(regionsInvs) == 0){
       stop("No regions on given chromosomes")
     }
-    ## for non-random distribution, set number of deletions to number of given regions
+    ## for non-random distribution, set number of inversions to number of given regions
     if(random[3] == FALSE){
       invs = length(regionsInvs)
     }
   }
   if(missing(regionsDups)){
     regionsDups = genomeCoords
-    dupTimes = sample(1:(maxDups-1), dups) + 1
+    dupTimes = sample(1:(maxDups-1), dups, replace=TRUE) + 1
   }else{
     regionsDups = regionsDups[seqnames(regionsDups) %in% intersect(chrs, as.character(seqnames((regionsDups))))]
     if(length(regionsDups) == 0){
       stop("No regions on given chromosomes")
     }
-    ## for non-random distribution, set number of deletions to number of given regions
-    dupTimes = sample(1:(maxDups-1), length(regionsDups)) + 1
+    ## for non-random distribution, set number of duplications to number of given regions
+    dupTimes = sample(1:(maxDups-1), length(regionsDups), replace=TRUE) + 1
     if(random[4] == FALSE){
       dups = length(regionsDups)
       if(ncol(mcols(regionsDups)) > 0){

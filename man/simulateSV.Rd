@@ -29,7 +29,7 @@
   \item{regionsInvs}{\code{GRanges} object with regions within the genome where to place the inversions}
   \item{regionsDups}{\code{GRanges} object with regions within the genome where to place the tandem duplications}
   \item{regionsTrans}{\code{GRanges} object with regions within the genome where to place the translocations}
-  \item{maxDups}{Maximum number of repepeats for tandem duplications}
+  \item{maxDups}{Maximum number of repeats for tandem duplications}
   \item{percCopiedIns}{Percentage of copy-and-paste-like insertions (default: 0, i.e. no inserted sequences are duplicated)}
   \item{percBalancedTrans}{Percentage of balanced translocations (default: 1, i.e. all translocations are balanced)}
   \item{bpFlankSize}{Size of the each breakpoint's flanking regions, which may contain additional SNPs and/or indels}

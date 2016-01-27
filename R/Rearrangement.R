@@ -211,7 +211,7 @@
   dupSeq = paste(rep(dupSeq, times + 1), collapse="")
   genomeSeq = DNAString(paste(subseq(genomeSeq, 1, sf-1), flankingRegion1, dupSeq, flankingRegion2, subseq(genomeSeq, ef+1, length(genomeSeq)), sep=""))
   
-  adjustBy = adjustBy + (end-start+1)*(times-1) # adjust positions by length of additional sequence
+  adjustBy = adjustBy + (end-start+1)*(times) # adjust positions by length of additional sequence
   posDel = .adjustPositions(posDel, c, end, adjustBy)
   posIns_1= .adjustPositions(posIns_1, c, end, adjustBy)
   posIns_2= .adjustPositions(posIns_2, c, end, adjustBy)
