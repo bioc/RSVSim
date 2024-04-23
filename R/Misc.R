@@ -113,7 +113,12 @@ setMethod("compareSV",
 ## tandem duplications: (1) BED with colums chr,start,end or (2) BEDPE with colums chr,start1,end1,chr,start2,end2
 ## translocations: BEDPE with columns chrA,startA,endA, chrB,startB,endB, (bpSeq1, bpSeq2)
 .compareSV <- function(querySVs, simSVs, tol){
-  
+  ## Might call .getOverlap() which requires the pwalign package.
+  if (!requireNamespace("pwalign", quietly=TRUE))
+    stop("Could not load package pwalign. Is it installed?\n\n  ",
+         wmsg("Note that compareSV() requires the pwalign package. ",
+              "Please install it with:"),
+         "\n\n    BiocManager::install(\"pwalign\")")
   ## get the type of SV by checking the column names in simSVs
   type = NA
   if(all(c("Name", "Chr", "Start", "End", "Size",  "BpSeq") %in% colnames(simSVs))){
@@ -310,11 +315,12 @@ setMethod("compareSV",
   
 }
 
-                         
+## Uses nucleotideSubstitutionMatrix() and pairwiseAlignment() from the
+## pwalign package.
 .getOverlap <- function(sim, query, bpSeqA, bpSeqB, tol, type){
 
   ## simple substitution matrix, which only counts matches
-  substitutionMatrix = nucleotideSubstitutionMatrix(match = 1, mismatch = 0, baseOnly = FALSE, type = "DNA")
+  substitutionMatrix = pwalign::nucleotideSubstitutionMatrix(match = 1, mismatch = 0, baseOnly = FALSE, type = "DNA")
 
   start(query[[1]]) = start(query[[1]]) - tol
   end(query[[1]]) = end(query[[1]]) + tol
@@ -342,7 +348,7 @@ setMethod("compareSV",
       ## align all overlaps and report the one with the maximum overlap
       bpSeqAlnScoreA = vector()
       for(h in hit1){
-        bpSeqAlnScoreA = c(bpSeqAlnScoreA, pairwiseAlignment(bpSeqA[[1]], bpSeqA[[2]][h], type="local", substitutionMatrix=substitutionMatrix, gapOpening=0, gapExtension=0, scoreOnly=TRUE))
+        bpSeqAlnScoreA = c(bpSeqAlnScoreA, pwalign::pairwiseAlignment(bpSeqA[[1]], bpSeqA[[2]][h], type="local", substitutionMatrix=substitutionMatrix, gapOpening=0, gapExtension=0, scoreOnly=TRUE))
       }
       bpSeqAlnScoreA = max(bpSeqAlnScoreA)
       bpSeqAlnScoreA = round((bpSeqAlnScoreA / nchar(bpSeqA[[1]])) * 100)
@@ -350,7 +356,7 @@ setMethod("compareSV",
     if(!any(is.na(bpSeqB[[2]]))){
       bpSeqAlnScoreB = vector()
       for(h in hit2){
-        bpSeqAlnScoreB = c(bpSeqAlnScoreB, pairwiseAlignment(bpSeqB[[1]], bpSeqB[[2]][h], type="local", substitutionMatrix=substitutionMatrix, gapOpening=0, gapExtension=0, scoreOnly=TRUE))
+        bpSeqAlnScoreB = c(bpSeqAlnScoreB, pwalign::pairwiseAlignment(bpSeqB[[1]], bpSeqB[[2]][h], type="local", substitutionMatrix=substitutionMatrix, gapOpening=0, gapExtension=0, scoreOnly=TRUE))
       }
       bpSeqAlnScoreB = max(bpSeqAlnScoreB)
       bpSeqAlnScoreB = round((bpSeqAlnScoreB / nchar(bpSeqB[[1]])) * 100)

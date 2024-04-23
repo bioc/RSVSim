@@ -2,14 +2,14 @@ Package: RSVSim
 Type: Package
 Title: RSVSim: an R/Bioconductor package for the simulation of
         structural variations
-Version: 1.43.0
-Date: 2021-11-21
+Version: 1.43.1
+Date: 2024-04-23
 Author: Christoph Bartenhagen
 Maintainer: Christoph Bartenhagen
         <c.bartenhagen@uni-koeln.de>
 Imports: methods, IRanges, ShortRead
 Depends: R (>= 3.0.0), Biostrings, GenomicRanges
-Suggests: BSgenome.Hsapiens.UCSC.hg19, BSgenome.Hsapiens.UCSC.hg19.masked, MASS, rtracklayer
+Suggests: BSgenome.Hsapiens.UCSC.hg19, BSgenome.Hsapiens.UCSC.hg19.masked, MASS, rtracklayer, pwalign
 Description: RSVSim is a package for the simulation of deletions,
         insertions, inversion, tandem-duplications and translocations
         of various sizes in any genome available as FASTA-file or

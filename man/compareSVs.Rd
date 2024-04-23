@@ -7,7 +7,11 @@
 
 \title{Compare the simulation with a set of SVs}
 
-\description{A typical use case of structural variant (SV) simulation with \code{\link{simulateSV}} is the evaluation of SV detection algorithms. The function \code{compareSV} looks for breakpoint overlaps between the output of the simulation (ground truth) and the output of an SV detection program and computes the sensitivity and precision. There is currently no common standard format for SVs. Because the main information about SVs is their position in the genome and, sometimes, the breakpoint sequence (depending on the SV detection algorithm), \code{compareSV} expects the SV detections in a simple BED- or BEDPE format.}
+\description{
+A typical use case of structural variant (SV) simulation with \code{\link{simulateSV}} is the evaluation of SV detection algorithms. The function \code{compareSV} looks for breakpoint overlaps between the output of the simulation (ground truth) and the output of an SV detection program and computes the sensitivity and precision. There is currently no common standard format for SVs. Because the main information about SVs is their position in the genome and, sometimes, the breakpoint sequence (depending on the SV detection algorithm), \code{compareSV} expects the SV detections in a simple BED- or BEDPE format.
+
+Note that \code{compareSV} requires the \pkg{pwalign} package.
+}
 
 \usage{compareSV(querySVs, simSVs, tol=200)}
 
