@@ -2,7 +2,7 @@ Package: RSVSim
 Type: Package
 Title: RSVSim: an R/Bioconductor package for the simulation of
         structural variations
-Version: 1.46.0
+Version: 1.47.0
 Date: 2024-04-23
 Author: Christoph Bartenhagen
 Maintainer: Christoph Bartenhagen
